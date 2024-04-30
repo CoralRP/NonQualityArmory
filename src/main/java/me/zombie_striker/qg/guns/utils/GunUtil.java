@@ -593,9 +593,6 @@ public class GunUtil {
 						slot = player.getInventory().getHeldItemSlot();
 					}
 					Gun.updateAmmo(g, player.getItemInHand(), amount);
-					if(QAMain.showAmmoInXPBar){
-						updateXPBar(player,g,amount);
-					}
 
 					if (slot == -1) {
 						try {
@@ -655,11 +652,6 @@ public class GunUtil {
 		}
 		Gun.updateAmmo(g, player, amount);
 		QAMain.DEBUG("New ammo: " + Gun.getAmount(player));
-	}
-
-	public static void updateXPBar(Player player, Gun g, int amount) {
-		player.setLevel(amount);
-		// Todo exp
 	}
 
 	public static void playShoot(final Gun g, final Player player) {
@@ -746,9 +738,6 @@ public class GunUtil {
 			temp.setItemMeta(im);
 			player.getInventory().setItem(slot, temp);
 
-			if(QAMain.showAmmoInXPBar){
-				updateXPBar(player,g,0);
-			}
 			new GunRefillerRunnable(player, temp, g, slot, initialAmount, reloadAmount, seconds, ammo, subtractAmount, !doNotRemoveAmmo);
 
 		}

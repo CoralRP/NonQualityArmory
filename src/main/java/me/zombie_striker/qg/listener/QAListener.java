@@ -913,15 +913,6 @@ public class QAListener implements Listener {
 				Bukkit.getScheduler().runTaskLater(QAMain.getInstance(), () -> IronsightsHandler.aim(e.getPlayer()), 1);
 			}
 		}
-
-		if(QAMain.showAmmoInXPBar) {
-			CustomBaseObject customBase = QualityArmory.getCustomItem(newslot);
-			if (customBase instanceof Gun) {
-				GunUtil.updateXPBar(e.getPlayer(), (Gun) customBase,QualityArmory.getBulletsInHand(e.getPlayer()));
-			}else{
-				e.getPlayer().setTotalExperience(0);
-			}
-		}
 	}
 
 	@EventHandler
