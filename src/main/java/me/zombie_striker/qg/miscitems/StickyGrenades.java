@@ -1,9 +1,8 @@
 package me.zombie_striker.qg.miscitems;
 
-import me.zombie_striker.customitemmanager.MaterialStorage;
+import me.zombie_striker.qg.item.MaterialStorage;
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.api.QAThrowableExplodeEvent;
-import me.zombie_striker.qg.guns.utils.WeaponSounds;
 import me.zombie_striker.qg.handlers.ExplosionHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -11,8 +10,6 @@ import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;

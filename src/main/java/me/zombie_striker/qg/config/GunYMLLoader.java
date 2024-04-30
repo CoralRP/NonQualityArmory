@@ -1,7 +1,7 @@
 package me.zombie_striker.qg.config;
 
-import me.zombie_striker.customitemmanager.CustomBaseObject;
-import me.zombie_striker.customitemmanager.MaterialStorage;
+import me.zombie_striker.qg.item.CustomBaseObject;
+import me.zombie_striker.qg.item.MaterialStorage;
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.ammo.Ammo;
 import me.zombie_striker.qg.ammo.AmmoType;
@@ -17,7 +17,6 @@ import me.zombie_striker.qg.utils.LocalUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -215,8 +214,6 @@ public class GunYMLLoader {
 							String soundEquip =  f2.contains("sound_equip")? f2.getString("sound_equip"):null;
 							String soundHit =  f2.contains("sound_meleehit")? f2.getString("sound_meleehit"):null;
 
-							if (wt == WeaponType.MEDKIT)
-								QAMain.miscRegister.put(ms, base=new MedKit(ms, name, displayname, materails, price));
 							if (wt == WeaponType.AMMO_BAG)
 								QAMain.miscRegister.put(ms, base=new AmmoBag(ms, name, displayname, materails, f2.getInt("max", 5), price));
 							if (wt == WeaponType.MELEE) {

@@ -1,9 +1,9 @@
 package me.zombie_striker.qg.listener;
 
-import me.zombie_striker.customitemmanager.ArmoryBaseObject;
-import me.zombie_striker.customitemmanager.CustomBaseObject;
-import me.zombie_striker.customitemmanager.CustomItemManager;
-import me.zombie_striker.customitemmanager.MaterialStorage;
+import me.zombie_striker.qg.item.ArmoryBaseObject;
+import me.zombie_striker.qg.item.CustomBaseObject;
+import me.zombie_striker.qg.item.CustomItemManager;
+import me.zombie_striker.qg.item.MaterialStorage;
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.ammo.Ammo;
 import me.zombie_striker.qg.api.QACustomItemInteractEvent;
@@ -34,7 +34,6 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -479,10 +478,6 @@ public class QAListener implements Listener {
 		if (e.isCancelled())
 			return;
 		if (QualityArmory.isCustomItem(e.getItem().getItemStack())) {
-			if (QAMain.shouldSend && !QAMain.namesToBypass.contains(e.getPlayer().getName())
-					&& !QAMain.resourcepackReq.contains(e.getPlayer().getUniqueId())) {
-				QualityArmory.sendResourcepack(e.getPlayer(), true);
-			}
 
 			if (QualityArmory.isGun(e.getItem().getItemStack())) {
 				Gun g = QualityArmory.getGun(e.getItem().getItemStack());
@@ -723,12 +718,6 @@ public class QAListener implements Listener {
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.ANVIL
 				&& QAMain.overrideAnvil && !e.getPlayer().isSneaking()) {
 			QAMain.DEBUG("ANVIL InteractEvent Called");
-			if (QAMain.shouldSend && !QAMain.resourcepackReq.contains(e.getPlayer().getUniqueId())) {
-				QualityArmory.sendResourcepack(e.getPlayer(), true);
-				e.setCancelled(true);
-				QAMain.DEBUG("Resourcepack message being sent!");
-				return;
-			}
 			if (!e.getPlayer().hasPermission("qualityarmory.craft")) {
 				e.getPlayer().sendMessage(QAMain.prefix + ChatColor.RED + QAMain.S_ANVIL);
 				return;
@@ -812,15 +801,6 @@ public class QAListener implements Listener {
 		if (event.isCancelled())
 			return;
 
-		if (QAMain.kickIfDeniedRequest && QAMain.sentResourcepack.containsKey(e.getPlayer().getUniqueId())
-				&& System.currentTimeMillis() - QAMain.sentResourcepack.get(e.getPlayer().getUniqueId()) >= 3000) {
-			// the player did not accept resourcepack, and got away with it
-			e.setCancelled(true);
-			e.getPlayer().kickPlayer(QAMain.S_KICKED_FOR_RESOURCEPACK);
-			QAMain.DEBUG("Kick for custom resourcepack");
-			return;
-		}
-
 		if (e.getItem() != null) {
 			final ItemStack origin = e.getItem();
 			final int slot = e.getPlayer().getInventory().getHeldItemSlot();
@@ -860,12 +840,6 @@ public class QAListener implements Listener {
 			}
 
 			ItemStack usedItem = IronsightsHandler.getItemAiming(e.getPlayer());
-
-			// Send the resourcepack if the player does not have it.
-			if (QAMain.shouldSend && !QAMain.resourcepackReq.contains(e.getPlayer().getUniqueId())) {
-				QAMain.DEBUG("Player does not have resourcepack!");
-				QualityArmory.sendResourcepack(e.getPlayer(), true);
-			}
 
 			if (IronsightsHandler.isAiming(e.getPlayer())) {
 				QAMain.DEBUG("Player is aiming!");
@@ -952,7 +926,6 @@ public class QAListener implements Listener {
 
 	@EventHandler
 	public void onQuit(final PlayerQuitEvent e) {
-		QAMain.resourcepackReq.remove(e.getPlayer().getUniqueId());
 		if (QAMain.reloadingTasks.containsKey(e.getPlayer().getUniqueId())) {
 			for (GunRefillerRunnable r : QAMain.reloadingTasks.get(e.getPlayer().getUniqueId())) {
 				r.getTask().cancel();
@@ -965,52 +938,6 @@ public class QAListener implements Listener {
 				e.getPlayer().getInventory().setItemInMainHand(e.getPlayer().getInventory().getItemInOffHand());
 				e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.AIR));
 			} catch (Error e2) {
-			}
-		}
-	}
-
-	@EventHandler
-	public void onJoin(final PlayerJoinEvent e) {
-		if (/* Bukkit.getVersion().contains("1.8") || */ Bukkit.getVersion().contains("1.7")) {
-			Bukkit.broadcastMessage(
-					QAMain.prefix + " QualityArmory does not support versions older than 1.9, and may crash clients");
-			Bukkit.broadcastMessage(
-					"Since there is no reason to stay on outdated updates, (1.7 and 1.8 has quite a number of exploits) update your server.");
-			if (QAMain.shouldSend) {
-				QAMain.shouldSend = false;
-				Bukkit.broadcastMessage(QAMain.prefix + ChatColor.RED + " Disabling resourcepack.");
-			}
-		}
-		if (QAMain.addGlowEffects) {
-			new BukkitRunnable() {
-
-				@Override
-				public void run() {
-					if (e.getPlayer().getScoreboard() != null
-							&& !QAMain.coloredGunScoreboard.contains(e.getPlayer().getScoreboard())) {
-						QAMain.coloredGunScoreboard.add(QAMain.registerGlowTeams(e.getPlayer().getScoreboard()));
-					}
-				}
-			}.runTaskLater(QAMain.getInstance(), 20 * 15);
-		}
-
-		if (QAMain.shouldSend && QAMain.sendOnJoin) {
-			QualityArmory.sendResourcepack(e.getPlayer(), QAMain.sendTitleOnJoin);
-		} else {
-			for (ItemStack i : e.getPlayer().getInventory().getContents()) {
-				if (i != null && (QualityArmory.isGun(i) || QualityArmory.isAmmo(i) || QualityArmory.isMisc(i))) {
-					if (QAMain.shouldSend && !QAMain.resourcepackReq.contains(e.getPlayer().getUniqueId())) {
-						new BukkitRunnable() {
-
-							@Override
-							public void run() {
-								QualityArmory.sendResourcepack(e.getPlayer(), false);
-							}
-
-						}.runTaskLater(QAMain.getInstance(), 0);
-					}
-					break;
-				}
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 package me.zombie_striker.qg.miscitems;
 
-import me.zombie_striker.customitemmanager.MaterialStorage;
+import me.zombie_striker.qg.item.MaterialStorage;
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.api.QAThrowableExplodeEvent;
 import me.zombie_striker.qg.guns.utils.WeaponSounds;
@@ -14,8 +14,6 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 

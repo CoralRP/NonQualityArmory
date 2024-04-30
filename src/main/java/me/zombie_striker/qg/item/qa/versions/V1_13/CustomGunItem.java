@@ -1,7 +1,7 @@
-package me.zombie_striker.customitemmanager.qa.versions.V1_13;
+package me.zombie_striker.qg.item.qa.versions.V1_13;
 
-import me.zombie_striker.customitemmanager.*;
-import me.zombie_striker.customitemmanager.qa.AbstractCustomGunItem;
+import me.zombie_striker.qg.item.*;
+import me.zombie_striker.qg.item.qa.AbstractCustomGunItem;
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.api.QualityArmory;
 import me.zombie_striker.qg.armor.ArmorObject;

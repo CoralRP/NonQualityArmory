@@ -1,4 +1,4 @@
-package me.zombie_striker.customitemmanager.qa;
+package me.zombie_striker.qg.item.qa;
 
 import com.jojodmo.itembridge.ItemBridge;
 import com.jojodmo.itembridge.ItemBridgeListener;

@@ -1,9 +1,9 @@
 package me.zombie_striker.qg.miscitems;
 
-import me.zombie_striker.customitemmanager.ArmoryBaseObject;
-import me.zombie_striker.customitemmanager.CustomBaseObject;
-import me.zombie_striker.customitemmanager.CustomItemManager;
-import me.zombie_striker.customitemmanager.MaterialStorage;
+import me.zombie_striker.qg.item.ArmoryBaseObject;
+import me.zombie_striker.qg.item.CustomBaseObject;
+import me.zombie_striker.qg.item.CustomItemManager;
+import me.zombie_striker.qg.item.MaterialStorage;
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.ammo.Ammo;
 import me.zombie_striker.qg.api.QualityArmory;

@@ -8,14 +8,13 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.zombie_striker.qg.QAMain;
-import me.zombie_striker.customitemmanager.MaterialStorage;
+import me.zombie_striker.qg.item.MaterialStorage;
 import me.zombie_striker.qg.guns.utils.WeaponSounds;
 
 public class Flashbang extends Grenade {

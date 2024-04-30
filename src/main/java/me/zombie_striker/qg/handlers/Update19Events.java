@@ -1,6 +1,6 @@
 package me.zombie_striker.qg.handlers;
 
-import me.zombie_striker.customitemmanager.CustomItemManager;
+import me.zombie_striker.qg.item.CustomItemManager;
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.api.QualityArmory;
 import me.zombie_striker.qg.guns.Gun;
@@ -8,7 +8,6 @@ import me.zombie_striker.qg.guns.utils.GunUtil;
 
 import me.zombie_striker.qg.listener.QAListener;
 import org.bukkit.*;
-import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.player.*;

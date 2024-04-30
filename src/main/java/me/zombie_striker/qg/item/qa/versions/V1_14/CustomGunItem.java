@@ -1,8 +1,7 @@
-package me.zombie_striker.customitemmanager.qa.versions.V1_14;
+package me.zombie_striker.qg.item.qa.versions.V1_14;
 
-import com.cryptomorin.xseries.XMaterial;
-import me.zombie_striker.customitemmanager.*;
-import me.zombie_striker.customitemmanager.qa.AbstractCustomGunItem;
+import me.zombie_striker.qg.item.*;
+import me.zombie_striker.qg.item.qa.AbstractCustomGunItem;
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.ammo.Ammo;
 import me.zombie_striker.qg.api.QualityArmory;
@@ -215,13 +214,6 @@ public class CustomGunItem extends AbstractCustomGunItem {
 				.done();
 
 		//BACKPACK GREEN
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,11,0));
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,12,0));
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,13,0));
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,14,0));
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,15,0));
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,16,0));
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,17,0));
 
 
 		GunYMLCreator.createAmmo(true, dataFolder, false, "mininuke", "MiniNuke", Material.PHANTOM_MEMBRANE, 9,

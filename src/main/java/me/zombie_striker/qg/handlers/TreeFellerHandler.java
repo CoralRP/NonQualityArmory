@@ -3,7 +3,7 @@ package me.zombie_striker.qg.handlers;
 import java.util.HashMap;
 import java.util.UUID;
 
-import me.zombie_striker.customitemmanager.CustomItemManager;
+import me.zombie_striker.qg.item.CustomItemManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

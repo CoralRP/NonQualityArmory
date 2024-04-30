@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import me.zombie_striker.customitemmanager.CustomBaseObject;
-import me.zombie_striker.customitemmanager.CustomItemManager;
+import me.zombie_striker.qg.item.CustomBaseObject;
+import me.zombie_striker.qg.item.CustomItemManager;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import me.zombie_striker.customitemmanager.ArmoryBaseObject;
-import me.zombie_striker.customitemmanager.MaterialStorage;
+import me.zombie_striker.qg.item.ArmoryBaseObject;
+import me.zombie_striker.qg.item.MaterialStorage;
 
 public class MeleeItems extends CustomBaseObject implements ArmoryBaseObject{
 

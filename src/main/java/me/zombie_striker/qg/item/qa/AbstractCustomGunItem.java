@@ -1,6 +1,6 @@
-package me.zombie_striker.customitemmanager.qa;
+package me.zombie_striker.qg.item.qa;
 
-import me.zombie_striker.customitemmanager.AbstractItem;
+import me.zombie_striker.qg.item.AbstractItem;
 
 import java.io.File;
 

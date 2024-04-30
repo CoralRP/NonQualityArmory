@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
-import me.zombie_striker.customitemmanager.*;
+import me.zombie_striker.qg.item.*;
 import me.zombie_striker.qg.handlers.HotbarMessager;
 import me.zombie_striker.qg.handlers.IronsightsHandler;
 import me.zombie_striker.qg.hooks.protection.ProtectionHandler;
@@ -57,17 +57,6 @@ public class QualityArmory {
 				type, sound, hasIronSights, ammotype, damage, maxBullets, cost);
 	}
 
-	public static void registerNewUsedExpansionItem(Material used, int id) {
-		registerNewUsedExpansionItem(used, id, 0);
-	}
-
-	public static void registerNewUsedExpansionItem(Material used, int id, int var) {
-		QAMain.expansionPacks.add(MaterialStorage.getMS(used, id, var));
-	}
-	public static void registerNewUsedExpansionItem(MaterialStorage ms) {
-		QAMain.expansionPacks.add(ms);
-	}
-
 	public static Iterator<Gun> getGuns(){
 		return QAMain.gunRegister.values().iterator();
 	}
@@ -93,65 +82,6 @@ public class QualityArmory {
 		return list;
 	}
 
-
-	@SuppressWarnings("deprecation")
-	public static void sendResourcepack(final Player player, final boolean warning) {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if (QAMain.namesToBypass.contains(player.getName())) {
-					QAMain.resourcepackReq.add(player.getUniqueId());
-					return;
-				}
-				if (warning) {
-					try {
-						player.sendTitle(LocalUtils.colorize(ChatColor.RED + QAMain.S_NORES1), LocalUtils.colorize(QAMain.S_NORES2));
-					} catch (Error e2) {
-						player.sendMessage(LocalUtils.colorize(ChatColor.RED + QAMain.S_NORES1));
-						player.sendMessage(LocalUtils.colorize(ChatColor.RED + QAMain.S_NORES2));
-					}
-				}
-				if (QAMain.showCrashMessage)
-					player.sendMessage(LocalUtils.colorize(QAMain.prefix + QAMain.S_RESOURCEPACK_HELP));
-
-				new BukkitRunnable() {
-					@Override
-					public void run() {
-						try {
-							try {
-								QAMain.DEBUG("Sending resourcepack : " + (QAMain.AutoDetectResourcepackVersion) + " || "
-										+ QAMain.MANUALLYSELECT18 + " || " + QAMain.isVersionHigherThan(1, 9) + " || ");
-								try {
-									if (QAMain.hasViaVersion) {
-										QAMain.DEBUG(
-												"Has Viaversion: " + us.myles.ViaVersion.bukkit.util.ProtocolSupportUtil
-														.getProtocolVersion(player) + " 1.8=" + QAMain.ViaVersionIdfor_1_8);
-
-									}
-								} catch (Error | Exception re4) {
-								}
-								player.setResourcePack(CustomItemManager.getResourcepack());
-
-							} catch (Error | Exception e4) {
-
-								player.setResourcePack(CustomItemManager.getResourcepack());
-							}
-
-							if (!QAMain.isVersionHigherThan(1, 9)) {
-								QAMain.resourcepackReq.add(player.getUniqueId());
-								QAMain.sentResourcepack.put(player.getUniqueId(), System.currentTimeMillis());
-							}
-							// If the player is on 1.8, manually add them to the resource list.
-
-						} catch (Exception e) {
-
-						}
-					}
-				}.runTaskLater(QAMain.getInstance(), 20 * (warning ? 1 : 5));
-			}
-		}.runTaskLater(QAMain.getInstance(), (long) (20 * QAMain.secondsTilSend));
-	}
-
 	public static boolean allowGunsInRegion(Location loc) {
 		try {
 			return ProtectionHandler.canPvp(loc);
@@ -173,7 +103,6 @@ public class QualityArmory {
 				return false;
 		}catch (Error|Exception e4){}
 		List<MaterialStorage> ms = new ArrayList<MaterialStorage>();
-		ms.addAll(QAMain.expansionPacks);
 		ms.addAll(QAMain.gunRegister.keySet());
 		ms.addAll(QAMain.armorRegister.keySet());
 		ms.addAll(QAMain.ammoRegister.keySet());
@@ -258,8 +187,6 @@ public class QualityArmory {
 		if(isMisc(itemstack))
 			return true;
 		if(isArmor(itemstack))
-			return true;
-		if(QAMain.expansionPacks.contains(MaterialStorage.getMS(is)))
 			return true;
 		return false;
 	}
@@ -543,9 +470,6 @@ public class QualityArmory {
 			for (MaterialStorage j : QAMain.armorRegister.keySet())
 				if (j.getMat() == newItemtype && ((j.getData() > safeDurib) == findHighest))
 					idsToWorryAbout.add(j.getData());
-			for (MaterialStorage j : QAMain.expansionPacks)
-				if (j.getMat() == newItemtype && ((j.getData() > safeDurib) == findHighest))
-					idsToWorryAbout.add(j.getData());
 			if (findHighest) {
 				for (int id = safeDurib + 1; id < safeDurib + 1000; id++) {
 					if (!idsToWorryAbout.contains(id))
@@ -570,9 +494,6 @@ public class QualityArmory {
 			if (j.getMat() == newItemtype && (j.getData() > safeDurib) == findHighest)
 				safeDurib = j.getData();
 		for (MaterialStorage j : QAMain.armorRegister.keySet())
-			if (j.getMat() == newItemtype && (j.getData() > safeDurib) == findHighest)
-				safeDurib = j.getData();
-		for (MaterialStorage j : QAMain.expansionPacks)
 			if (j.getMat() == newItemtype && (j.getData() > safeDurib) == findHighest)
 				safeDurib = j.getData();
 		return safeDurib;
@@ -603,10 +524,6 @@ public class QualityArmory {
 					&& ((j.getVariant() > safeDurib) == findHighest))
 				safeDurib = j.getVariant();
 		for (MaterialStorage j : QAMain.armorRegister.keySet())
-			if (j.getMat() == newItemtype && (j.getData() == startingData)
-					&& ((j.getVariant() > safeDurib) == findHighest))
-				safeDurib = j.getVariant();
-		for (MaterialStorage j : QAMain.expansionPacks)
 			if (j.getMat() == newItemtype && (j.getData() == startingData)
 					&& ((j.getVariant() > safeDurib) == findHighest))
 				safeDurib = j.getVariant();

@@ -3,8 +3,8 @@ package me.zombie_striker.qg.miscitems;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.zombie_striker.customitemmanager.CustomBaseObject;
-import me.zombie_striker.customitemmanager.CustomItemManager;
+import me.zombie_striker.qg.item.CustomBaseObject;
+import me.zombie_striker.qg.item.CustomItemManager;
 import me.zombie_striker.qg.api.QAThrowableExplodeEvent;
 import me.zombie_striker.qg.hooks.protection.ProtectionHandler;
 import org.bukkit.Bukkit;
@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.zombie_striker.qg.QAMain;
-import me.zombie_striker.customitemmanager.MaterialStorage;
+import me.zombie_striker.qg.item.MaterialStorage;
 import me.zombie_striker.qg.guns.utils.WeaponSounds;
 import me.zombie_striker.qg.handlers.ExplosionHandler;
 

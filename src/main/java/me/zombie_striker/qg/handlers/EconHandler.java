@@ -1,6 +1,6 @@
 package me.zombie_striker.qg.handlers;
 
-import me.zombie_striker.customitemmanager.CustomBaseObject;
+import me.zombie_striker.qg.item.CustomBaseObject;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;

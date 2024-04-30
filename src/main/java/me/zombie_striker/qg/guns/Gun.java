@@ -1,7 +1,7 @@
 package me.zombie_striker.qg.guns;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
-import me.zombie_striker.customitemmanager.*;
+import me.zombie_striker.qg.item.*;
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.ammo.Ammo;
 import me.zombie_striker.qg.api.QAWeaponPrepareShootEvent;
@@ -198,11 +198,6 @@ public class Gun extends CustomBaseObject implements ArmoryBaseObject, Comparabl
                     + (g.getBulletsPerShot() > 1 ? "x" + g.getBulletsPerShot() : "")));
             if (g.getAmmoType() != null)
                 lore.add(QAMain.S_ITEM_AMMO + ": " + g.getAmmoType().getDisplayName());
-        }
-        if (QAMain.AutoDetectResourcepackVersion && Bukkit.getPluginManager().isPluginEnabled("ViaRewind")) {
-            if (g.is18Support()) {
-                lore.add(ChatColor.GRAY + "1.8 Weapon");
-            }
         }
 
         if (QAMain.enableDurability)
