@@ -106,13 +106,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- XSeries for Reflection -->
-        <dependency>
-            <groupId>com.github.cryptomorin</groupId>
-            <artifactId>XSeries</artifactId>
-            <version>9.8.1</version>
-        </dependency>
-
         <!-- Vault API -->
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
@@ -252,11 +245,16 @@
 
         <!-- ItemBridge -->
         <dependency>
-            <groupId>com.jojodmo</groupId>
+            <groupId>com.github.jojodmo</groupId>
             <artifactId>ItemBridge</artifactId>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/ItemBridge.jar</systemPath>
-            <version>IDK</version>
+            <scope>provided</scope>
+            <version>2acbb8ffe8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.cryptomorin</groupId>
+            <artifactId>XSeries</artifactId>
+            <version>11.2.0</version>
         </dependency>
 
         <dependency>

@@ -106,7 +106,7 @@ public class ParticleHandlers {
 			if (g.getParticle() != null)
 				if (g.getParticle() == XParticle.DUST.get()) {
 					spawnParticle(g.getParticleR(), g.getParticleG(), g.getParticleB(), loc);
-				} else if (g.getParticle() == XParticle.BLOCK.get() || g.getParticle() == Particle.BLOCK || g.getParticle() == Particle.FALLING_DUST) {
+				} else if (g.getParticle() == XParticle.BLOCK.get() || g.getParticle() == Particle.BLOCK_CRACK || g.getParticle() == Particle.FALLING_DUST) {
 					loc.getWorld().spawnParticle(g.getParticle(), loc, 1, g.getParticleMaterial().createBlockData());
 				} else {
 					loc.getWorld().spawnParticle(g.getParticle(), loc, g.getParticleData());

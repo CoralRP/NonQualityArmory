@@ -38,6 +38,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
+import us.myles.ViaVersion.api.Via;
 
 import java.util.ArrayList;
 
@@ -492,7 +493,7 @@ public class QAListener implements Listener {
 				Gun g = QualityArmory.getGun(e.getItem().getItemStack());
 				try {
 					if (QAMain.AutoDetectResourcepackVersion && !QAMain.MANUALLYSELECT18) {
-						if (com.viaversion.viaversion.api.Via.getAPI()
+						if (Via.getAPI()
 								.getPlayerVersion(e.getPlayer()) < QAMain.ViaVersionIdfor_1_8) {
 							if (!g.is18Support()) {
 								for (Gun g2 : QAMain.gunRegister.values()) {
@@ -517,7 +518,7 @@ public class QAListener implements Listener {
 								}
 							}
 						} else {
-							if (com.viaversion.viaversion.api.Via.getAPI()
+							if (Via.getAPI()
 									.getPlayerVersion(e.getPlayer()) >= QAMain.ViaVersionIdfor_1_8) {
 								if (g.is18Support()) {
 									for (Gun g2 : QAMain.gunRegister.values()) {
