@@ -29,6 +29,7 @@ import me.zombie_striker.qg.guns.utils.WeaponSounds;
 import me.zombie_striker.qg.handlers.*;
 import me.zombie_striker.qg.hooks.protection.ProtectionHandler;
 import me.zombie_striker.qg.listener.QAListener;
+import me.zombie_striker.qg.tasks.BulletproofTask;
 import me.zombie_striker.qg.utils.LocalUtils;
 import org.bukkit.*;
 import org.bukkit.command.Command;
@@ -634,6 +635,8 @@ public class QAMain extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new QAListener(), this);
         Bukkit.getPluginManager().registerEvents(new AimManager(), this);
+
+        new BulletproofTask().runTaskTimer(this, 0, 20);
 
         if (!CustomItemManager.isUsingCustomData()) {
             new BukkitRunnable() {
