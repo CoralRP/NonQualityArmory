@@ -702,10 +702,6 @@ public class QAMain extends JavaPlugin {
         new SlideReloader();
         new M1GarandReloader();
 
-        new MiniNukeProjectile();
-        new ExplodingRoundProjectile();
-        new HomingRocketProjectile();
-        new RocketProjectile();
         new FireProjectile();
 
         gunRegister.clear();
@@ -1077,34 +1073,18 @@ public class QAMain extends JavaPlugin {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
-            List<String> s = new ArrayList<String>();
+            List<String> s = new ArrayList<>();
             if (b("give", args[0]))
                 s.add("give");
-            if (b("drop", args[0]))
-                s.add("drop");
-            if (b("version", args[0]))
-                s.add("version");
-            if (b("dumpItem", args[0]))
-                s.add("dumpItem");
-            if (enableShop)
-                if (b("shop", args[0]))
-                    s.add("shop");
-            if (enableCrafting)
-                if (b("craft", args[0]))
-                    s.add("craft");
-            // if (b("getOpenGunSlot", args[0]))
-            // s.add("getOpenGunSlot");
             if (sender.hasPermission("qualityarmory.reload"))
                 if (b("reload", args[0]))
                     s.add("reload");
-            if (sender.hasPermission("qualityarmory.createnewitem")) {
-            }
 
             return s;
         }
         if (args.length == 2) {
             List<String> s = new ArrayList<String>();
-            if (args[0].equalsIgnoreCase("give") || args[0].equalsIgnoreCase("drop")) {
+            if (args[0].equalsIgnoreCase("give")) {
                 for (Entry<MaterialStorage, Gun> e : gunRegister.entrySet()) {
                     if (e.getValue() instanceof AttachmentBase) {
                         if (b(e.getValue().getName(), args[1]))
