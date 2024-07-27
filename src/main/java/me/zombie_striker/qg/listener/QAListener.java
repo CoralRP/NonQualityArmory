@@ -1,5 +1,6 @@
 package me.zombie_striker.qg.listener;
 
+import me.zombie_striker.qg.api.QADamageEvent;
 import me.zombie_striker.qg.item.ArmoryBaseObject;
 import me.zombie_striker.qg.item.CustomBaseObject;
 import me.zombie_striker.qg.item.CustomItemManager;
@@ -14,9 +15,12 @@ import me.zombie_striker.qg.guns.Gun;
 import me.zombie_striker.qg.guns.utils.GunRefillerRunnable;
 import me.zombie_striker.qg.guns.utils.GunUtil;
 import me.zombie_striker.qg.handlers.*;
-import me.zombie_striker.qg.miscitems.Grenade;
-import me.zombie_striker.qg.miscitems.MeleeItems;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 import org.bukkit.*;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -39,6 +43,21 @@ import java.util.ArrayList;
 
 public class QAListener implements Listener {
 
+	@EventHandler
+	public void onDamage(QADamageEvent event) {
+		Entity var3 = event.getDamaged();
+		if (var3 instanceof Player) {
+			Player damaged = (Player)var3;
+			Player damager = (Player)event.getDamager();
+			Gun gun = event.getGun();
+			String var10000 = damager.getName();
+			TextComponent var6 = Component.text("§2[SPARO] §a" + var10000 + "§7 ha sparato a §a" + damaged.getName() + " §7con §a" + gun.getName() + ".").clickEvent(ClickEvent.runCommand("/tp " + damager.getName()));
+			String var10001 = gun.getName();
+			Component var5 = var6.hoverEvent(HoverEvent.showText(Component.text("§aɪɴꜰᴏʀᴍᴀᴢɪᴏɴɪ ѕᴘᴀʀᴏ\n\n§7Arma: §f" + var10001 + "\n§7Danno: §f" + event.getDamage() + "\n\n§7Posizione " + damager.getName() + ": §f" + damager.getLocation().getBlockX() + ", " + damager.getLocation().getBlockY() + ", " + damager.getLocation().getBlockZ() + "\n§7Posizione " + damaged.getName() + ": §f" + damaged.getLocation().getBlockX() + ", " + damaged.getLocation().getBlockY() + ", " + damaged.getLocation().getBlockZ() + "\n\n§eClicca per teletrasportarti\n")));
+			Bukkit.broadcast(var5, "qa.notify");
+		}
+	}
+
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onHit(EntityDamageByEntityEvent e) {
@@ -49,11 +68,6 @@ public class QAListener implements Listener {
 			if ((e.getCause() == DamageCause.ENTITY_ATTACK || e.getCause() == DamageCause.ENTITY_SWEEP_ATTACK)) {
 				if (QualityArmory.isMisc(d.getItemInHand())) {
 					CustomBaseObject aa = QualityArmory.getMisc(d.getItemInHand());
-					if (aa instanceof MeleeItems) {
-						DEBUG("Setting damage for " + aa.getName() + " to be equal to " + ((MeleeItems) aa).getDamage()
-								+ ". was " + e.getDamage());
-						e.setDamage(((MeleeItems) aa).getDamage());
-					}
 					if (aa.getSoundOnHit() != null) {
 						e.getEntity().getWorld().playSound(e.getEntity().getLocation(), aa.getSoundOnHit(), 1, 1);
 					}
@@ -81,11 +95,6 @@ public class QAListener implements Listener {
 		if (e.getInventory().getType() == InventoryType.HOPPER) {
 			if (QualityArmory.isGun(e.getItem().getItemStack()))
 				e.setCancelled(true);
-
-			if (Grenade.getGrenades().contains(e.getItem())) {
-				e.setCancelled(true);
-				QAMain.DEBUG("Cancelled item pickup event because it was a grenade");
-			}
 		}
 	}
 

@@ -29,8 +29,6 @@ import me.zombie_striker.qg.guns.utils.WeaponSounds;
 import me.zombie_striker.qg.handlers.*;
 import me.zombie_striker.qg.hooks.protection.ProtectionHandler;
 import me.zombie_striker.qg.listener.QAListener;
-import me.zombie_striker.qg.miscitems.ThrowableItems;
-import me.zombie_striker.qg.miscitems.ThrowableItems.ThrowableHolder;
 import me.zombie_striker.qg.utils.LocalUtils;
 import org.bukkit.*;
 import org.bukkit.command.Command;
@@ -140,8 +138,6 @@ public class QAMain extends JavaPlugin {
     public static String S_NOPERM = "&c You do not have permission to do that.";
 
     public static String S_RELOAD = " Guns and configs have been reloaded.";
-    public static String S_NORES1 = " &c&l Downloading Resourcepack...";
-    public static String S_NORES2 = " &f Accept the resourcepack to see the custom items";
     public static String S_ANVIL = " &a You do not have permission to use this armory bench. Shift+Click to access anvil.";
     public static String S_ITEM_BULLETS = "&aBullets";
     public static String S_ITEM_DURIB = "Durability";
@@ -157,7 +153,6 @@ public class QAMain extends JavaPlugin {
     public static String S_ITEM_CRAFTS = "Crafts";
     public static String S_ITEM_RETURNS = "Returns";
 
-    public static String S_KICKED_FOR_RESOURCEPACK = "&c You have been kicked because you did not accept the resourcepack. \n&f If you want to rejoin the server, edit the server entry and set \"Resourcepack Prompts\" to \"Accept\" or \"Prompt\"'";
     public static String S_LMB_SINGLE = ChatColor.DARK_GRAY + "[LMB] to use Single-fire mode";
     public static String S_LMB_FULLAUTO = ChatColor.DARK_GRAY + "[Sneak]+[LMB] to use Automatic-fire";
     public static String S_RMB_RELOAD = ChatColor.DARK_GRAY + "[RMB] to reload";
@@ -180,10 +175,6 @@ public class QAMain extends JavaPlugin {
     public static String S_RELOADING_MESSAGE = "[Reloading...]";
     public static String S_MAX_FOUND = "[%total%]";
     public static String S_HOTBAR_FORMAT = "%name% = %amount%/%max% %state%";
-    public static String S_RESOURCEPACK_HELP = "In case the resourcepack crashes your client, reject the request and use /qa getResourcepack to get the resourcepack.";
-    public static String S_RESOURCEPACK_DOWNLOAD = "Download this resourcepack and enable it to see the custom items (Note that it may take some time to load)";
-    public static String S_RESOURCEPACK_BYPASS = "By issuing this command, you are now added to a whitelist for the resourcepack. You should no longer see the prompt";
-    public static String S_RESOURCEPACK_OPTIN = "By issuing this command, you have been removed from the whitelist. You will now recieve the resourcepack prompt";
     public static String S_GRENADE_PULLPIN = " Pull the pin first...";
     public static String S_GRENADE_PALREADYPULLPIN = "You already pulled the pin!";
     public static boolean enableCrafting = true;
@@ -604,15 +595,6 @@ public class QAMain extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        for (Entry<MaterialStorage, CustomBaseObject> misc : miscRegister.entrySet()) {
-            if (misc instanceof ThrowableItems) {
-                for (Entry<Entity, ThrowableHolder> e : ThrowableItems.throwItems.entrySet()) {
-                    if (e.getKey() instanceof Item)
-                        e.getKey().remove();
-                }
-            }
-        }
-
         for (Scoreboard s : coloredGunScoreboard)
             for (Team t : s.getTeams())
                 t.unregister();
@@ -750,8 +732,6 @@ public class QAMain extends JavaPlugin {
         S_noMoney = LocalUtils.colorize((String) m.a("NoMoney", S_noMoney));
         S_craftingBenchName = (String) m.a("CraftingBenchName", S_craftingBenchName);
         S_missingIngredients = (String) m.a("Missing_Ingredients", S_missingIngredients);
-        S_NORES1 = LocalUtils.colorize((String) m.a("NoResourcepackMessage1", S_NORES1));
-        S_NORES2 = LocalUtils.colorize((String) m.a("NoResourcepackMessage2", S_NORES2));
         S_ITEM_AMMO = LocalUtils.colorize((String) m.a("Lore_Ammo", S_ITEM_AMMO));
         S_ITEM_BULLETS = LocalUtils.colorize((String) m.a("lore_bullets", S_ITEM_BULLETS));
         S_ITEM_DAMAGE = LocalUtils.colorize((String) m.a("Lore_Damage", S_ITEM_DAMAGE));
@@ -776,9 +756,6 @@ public class QAMain extends JavaPlugin {
         S_OUT_OF_AMMO = LocalUtils.colorize((String) m.a("State_OutOfAmmo", S_OUT_OF_AMMO));
         S_HOTBAR_FORMAT = LocalUtils.colorize((String) m.a("HotbarMessage", S_HOTBAR_FORMAT));
 
-        S_KICKED_FOR_RESOURCEPACK = LocalUtils.colorize(
-                (String) m.a("Kick_message_if_player_denied_request", S_KICKED_FOR_RESOURCEPACK));
-
         S_LMB_SINGLE = (String) m.a("Lore-LMB-Single", S_LMB_SINGLE);
         S_LMB_FULLAUTO = (String) m.a("Lore-LMB-FullAuto", S_LMB_FULLAUTO);
         S_RMB_RELOAD = (String) m.a("Lore-RMB-Reload", S_RMB_RELOAD);
@@ -789,11 +766,6 @@ public class QAMain extends JavaPlugin {
         S_HELMET_RMB = LocalUtils.colorize((String) m.a("Lore-Helmet-RMB", S_HELMET_RMB));
 
         S_BUYCONFIRM = LocalUtils.colorize((String) m.a("Shop_Confirm", S_BUYCONFIRM));
-
-        S_RESOURCEPACK_HELP = (String) m.a("Resourcepack_InCaseOfCrash", S_RESOURCEPACK_HELP);
-        S_RESOURCEPACK_DOWNLOAD = (String) m.a("Resourcepack_Download", S_RESOURCEPACK_DOWNLOAD);
-        S_RESOURCEPACK_BYPASS = (String) m.a("Resourcepack_NowBypass", S_RESOURCEPACK_BYPASS);
-        S_RESOURCEPACK_OPTIN = (String) m.a("Resourcepack_NowOptIn", S_RESOURCEPACK_OPTIN);
 
         S_GRENADE_PALREADYPULLPIN = LocalUtils.colorize((String) m.a("grenadeAlreadyPulled", S_GRENADE_PALREADYPULLPIN));
         S_GRENADE_PULLPIN = LocalUtils.colorize((String) m.a("grenadePull", S_GRENADE_PULLPIN));
@@ -860,8 +832,6 @@ public class QAMain extends JavaPlugin {
 
 
         friendlyFire = (boolean) a("FriendlyFireEnabled", false);
-
-        kickIfDeniedRequest = (boolean) a("KickPlayerIfDeniedResourcepack", false);
 
         enableDurability = (boolean) a("EnableWeaponDurability", false);
 
@@ -1033,10 +1003,8 @@ public class QAMain extends JavaPlugin {
 
         // Skull texture
         GunYMLLoader.loadAmmo(this);
-        GunYMLLoader.loadMisc(this);
         GunYMLLoader.loadGuns(this);
         GunYMLLoader.loadAttachments(this);
-        GunYMLLoader.loadArmor(this);
         if (QAMain.enableBleeding)
             BulletWoundHandler.startTimer();
 
@@ -1115,10 +1083,6 @@ public class QAMain extends JavaPlugin {
                 s.add("give");
             if (b("drop", args[0]))
                 s.add("drop");
-            if (b("getResourcepack", args[0]))
-                s.add("getResourcepack");
-            if (b("sendResourcepack", args[0]))
-                s.add("sendResourcepack");
             if (b("version", args[0]))
                 s.add("version");
             if (b("dumpItem", args[0]))

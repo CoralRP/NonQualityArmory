@@ -10,7 +10,6 @@ import me.zombie_striker.qg.item.*;
 import me.zombie_striker.qg.handlers.HotbarMessager;
 import me.zombie_striker.qg.handlers.IronsightsHandler;
 import me.zombie_striker.qg.hooks.protection.ProtectionHandler;
-import me.zombie_striker.qg.miscitems.AmmoBag;
 import me.zombie_striker.qg.utils.LocalUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -265,24 +264,6 @@ public class QualityArmory {
 		return null;
 	}
 
-	public static int getAmmoInBag(@NotNull Player player, Ammo a) {
-		int amount = 0;
-
-		for (ItemStack is : player.getInventory().getContents()) {
-			if (is == null || is.getType().equals(Material.AIR)) continue;
-
-			CustomBaseObject customItem = getCustomItem(is);
-			if (customItem instanceof AmmoBag) {
-				Ammo ammoType = ((AmmoBag) customItem).getAmmoType(is);
-				if (ammoType == null || !ammoType.equals(a)) continue;
-
-				amount += ((AmmoBag) customItem).getAmmo(is);
-			}
-		}
-
-		return amount;
-	}
-
 	public static CustomBaseObject getCustomItemByName(String name){
 		CustomBaseObject b = null;
 		if((b=getAmmoByName(name))!=null)
@@ -306,16 +287,6 @@ public class QualityArmory {
 		MaterialStorage storage = MaterialStorage.getMS(is,var);
 
 		return QAMain.ammoRegister.containsKey(storage);
-	}
-
-	public static boolean isAmmoBag(ItemStack is) {
-		if (is == null)
-			return false;
-		int var = MaterialStorage.getVariant(is);
-
-		MaterialStorage storage = MaterialStorage.getMS(is,var);
-
-		return QAMain.miscRegister.containsKey(storage) && QAMain.miscRegister.get(storage) instanceof AmmoBag;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -560,14 +531,8 @@ public class QualityArmory {
 		return OLD_ItemFact.getIronSights();
 	}
 
-	
-
 
 	public static int getAmmoInInventory(Player player, Ammo a) {
-		return getAmmoInInventory(player,a,false);
-	}
-
-	public static int getAmmoInInventory(Player player, Ammo a, boolean ignoreBag) {
 		int amount = 0;
 		if(player.getGameMode()==GameMode.CREATIVE)
 			return 99999;
@@ -576,7 +541,7 @@ public class QualityArmory {
 				amount += is.getAmount();
 			}
 		}
-		return ignoreBag ? amount : amount + getAmmoInBag(player, a);
+		return amount;
 	}
 
 	public static boolean addAmmoToInventory(Player player, Ammo a, int amount) {
@@ -629,30 +594,6 @@ public class QualityArmory {
 				if (remaining <= 0)
 					break;
 
-			}
-		}
-
-		if (remaining > 0) {
-			for (int i = 0; i < player.getInventory().getSize(); i++) {
-				ItemStack is = player.getInventory().getItem(i);
-				if (QualityArmory.isAmmoBag(is)) {
-					AmmoBag ab = (AmmoBag) QualityArmory.getCustomItem(is);
-					if (ab == null) continue;
-
-					Ammo ammoType = ab.getAmmoType(is);
-					if (ammoType != null && ammoType.equals(a)) {
-						int amountInBag = ab.getAmmo(is);
-
-						if (amountInBag >= remaining) {
-							ab.updateAmmoLore(is, amountInBag - remaining);
-							remaining = 0;
-						} else {
-							ab.updateAmmoLore(is, 0);
-							remaining -= amountInBag;
-						}
-					}
-
-				}
 			}
 		}
 
