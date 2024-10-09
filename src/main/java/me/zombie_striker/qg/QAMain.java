@@ -1082,7 +1082,7 @@ public class QAMain extends JavaPlugin {
             if (b("give", args[0]))
                 s.add("give");
 
-            if (sender.hasPermission("qualityarmory.toggleNotify"))
+            if (sender.hasPermission("qualityarmory.notify"))
                 if (b("toggleNotify", args[0]))
                     s.add("toggleNotify");
 
@@ -1131,7 +1131,7 @@ public class QAMain extends JavaPlugin {
         if (command.getName().equalsIgnoreCase("QualityArmory")) {
             if (args.length > 0) {
                 if (args[0].equalsIgnoreCase("toggleNotify")) {
-                    if (!sender.hasPermission("qualityarmory.toggleNotify")) {
+                    if (!sender.hasPermission("qa.notify")) {
                         sender.sendMessage(prefix + ChatColor.RED + S_NOPERM);
                         return true;
                     }
