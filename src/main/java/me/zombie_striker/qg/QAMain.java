@@ -43,6 +43,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -1079,6 +1081,11 @@ public class QAMain extends JavaPlugin {
             List<String> s = new ArrayList<>();
             if (b("give", args[0]))
                 s.add("give");
+
+            if (sender.hasPermission("qualityarmory.toggleNotify"))
+                if (b("toggleNotify", args[0]))
+                    s.add("toggleNotify");
+
             if (sender.hasPermission("qualityarmory.reload"))
                 if (b("reload", args[0]))
                     s.add("reload");
@@ -1114,11 +1121,42 @@ public class QAMain extends JavaPlugin {
         return null;
     }
 
+    public NamespacedKey getNotifyKey() {
+        return new NamespacedKey(this, "QA_NOTIFY");
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("QualityArmory")) {
             if (args.length > 0) {
+                if (args[0].equalsIgnoreCase("toggleNotify")) {
+                    if (!sender.hasPermission("qualityarmory.toggleNotify")) {
+                        sender.sendMessage(prefix + ChatColor.RED + S_NOPERM);
+                        return true;
+                    }
+
+                    if (!(sender instanceof Player player)) {
+                        sender.sendMessage("You must be a player to use this command");
+                        return true;
+                    }
+
+                    PersistentDataContainer persistentDataContainer = player.getPersistentDataContainer();
+                    NamespacedKey key = getNotifyKey();
+
+                    Byte notify = persistentDataContainer.get(key, PersistentDataType.BYTE);
+
+                    if (notify == null) {
+                        persistentDataContainer.set(key, PersistentDataType.BYTE, (byte) 1);
+                        sender.sendMessage(prefix + " D'ora in avanti non riceverai le notifiche degli spari");
+                    } else {
+                        persistentDataContainer.remove(key);
+                        sender.sendMessage(prefix + " D'ora in avanti riceverai le notifiche degli spari");
+                    }
+
+                    return true;
+
+                }
                 if (args[0].equalsIgnoreCase("reload")) {
                     if (sender.hasPermission("qualityarmory.reload")) {
                         reloadConfig();
