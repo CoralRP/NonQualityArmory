@@ -16,7 +16,7 @@ public class BulletproofTask extends BukkitRunnable {
             ItemStack chestPlate = player.getInventory().getChestplate();
 
             if (chestPlate == null || chestPlate.getType().isAir()) continue;
-            if (chestPlate.getType() != Material.DIAMOND_CHESTPLATE && chestPlate.getType() != Material.GOLDEN_CHESTPLATE) continue;
+            if (chestPlate.getType() != Material.DIAMOND_CHESTPLATE) continue;
 
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 0));
         }
