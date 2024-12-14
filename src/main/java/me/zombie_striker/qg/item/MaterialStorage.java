@@ -1,9 +1,8 @@
-package me.zombie_striker.customitemmanager;
+package me.zombie_striker.qg.item;
 
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.handlers.MultiVersionLookup;
 import me.zombie_striker.qg.handlers.SkullHandler;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;

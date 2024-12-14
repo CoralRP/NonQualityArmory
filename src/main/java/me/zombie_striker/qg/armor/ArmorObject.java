@@ -2,17 +2,17 @@ package me.zombie_striker.qg.armor;
 
 import java.util.List;
 
-import me.zombie_striker.customitemmanager.CustomBaseObject;
-import me.zombie_striker.customitemmanager.CustomItemManager;
+import me.zombie_striker.qg.item.CustomBaseObject;
+import me.zombie_striker.qg.item.CustomItemManager;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import me.zombie_striker.customitemmanager.ArmoryBaseObject;
+import me.zombie_striker.qg.item.ArmoryBaseObject;
 import me.zombie_striker.qg.QAMain;
-import me.zombie_striker.customitemmanager.MaterialStorage;
+import me.zombie_striker.qg.item.MaterialStorage;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class ArmorObject extends CustomBaseObject implements ArmoryBaseObject {
@@ -107,7 +107,7 @@ public class ArmorObject extends CustomBaseObject implements ArmoryBaseObject {
 		ItemStack item = CustomItemManager.getItemType("gun").getItem(this.getItemData().getMat(),this.getItemData().getData(),this.getItemData().getVariant());
 		ItemMeta itemMeta = item.getItemMeta();
 		if (itemMeta != null && protection != 0) {
-			itemMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, new AttributeModifier("generic.armor", protection, AttributeModifier.Operation.ADD_NUMBER));
+			itemMeta.addAttributeModifier(Attribute.ARMOR, new AttributeModifier("generic.armor", protection, AttributeModifier.Operation.ADD_NUMBER));
 			item.setItemMeta(itemMeta);
 		}
 

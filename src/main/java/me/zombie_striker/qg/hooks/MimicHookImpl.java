@@ -1,6 +1,6 @@
 package me.zombie_striker.qg.hooks;
 
-import me.zombie_striker.customitemmanager.CustomBaseObject;
+import me.zombie_striker.qg.item.CustomBaseObject;
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.api.QualityArmory;
 import org.bukkit.inventory.ItemStack;

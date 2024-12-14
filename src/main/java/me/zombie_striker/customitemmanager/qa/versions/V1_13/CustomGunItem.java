@@ -1,6 +1,5 @@
 package me.zombie_striker.customitemmanager.qa.versions.V1_13;
 
-import me.zombie_striker.customitemmanager.*;
 import me.zombie_striker.customitemmanager.qa.AbstractCustomGunItem;
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.api.QualityArmory;
@@ -14,6 +13,10 @@ import me.zombie_striker.qg.handlers.IronsightsHandler;
 import me.zombie_striker.qg.handlers.MultiVersionLookup;
 import me.zombie_striker.qg.guns.chargers.ChargingManager;
 import me.zombie_striker.qg.guns.reloaders.ReloadingManager;
+import me.zombie_striker.qg.item.CustomBaseObject;
+import me.zombie_striker.qg.item.CustomItemManager;
+import me.zombie_striker.qg.item.MaterialStorage;
+import me.zombie_striker.qg.item.OLD_ItemFact;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

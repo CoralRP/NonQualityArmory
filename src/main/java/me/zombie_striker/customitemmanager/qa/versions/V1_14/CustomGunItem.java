@@ -1,6 +1,5 @@
 package me.zombie_striker.customitemmanager.qa.versions.V1_14;
 
-import me.zombie_striker.customitemmanager.*;
 import me.zombie_striker.customitemmanager.qa.AbstractCustomGunItem;
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.ammo.Ammo;
@@ -16,6 +15,10 @@ import me.zombie_striker.qg.handlers.MultiVersionLookup;
 import me.zombie_striker.qg.guns.chargers.ChargingManager;
 import me.zombie_striker.qg.guns.reloaders.ReloadingManager;
 import me.zombie_striker.qg.handlers.SkullHandler;
+import me.zombie_striker.qg.item.CustomBaseObject;
+import me.zombie_striker.qg.item.CustomItemManager;
+import me.zombie_striker.qg.item.MaterialStorage;
+import me.zombie_striker.qg.item.OLD_ItemFact;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -90,7 +93,7 @@ public class CustomGunItem extends AbstractCustomGunItem {
 
 			if (overrideAttackSpeed) {
 				AttributeModifier modifier = new AttributeModifier(base.getUuid(), "generic.attackSpeed", 0, AttributeModifier.Operation.ADD_NUMBER);
-				im.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, modifier);
+				im.addAttributeModifier(Attribute.ATTACK_SPEED, modifier);
 			}
 
 			if (QAMain.ITEM_enableUnbreakable) {
@@ -212,15 +215,6 @@ public class CustomGunItem extends AbstractCustomGunItem {
 						Material.BLAZE_POWDER, 0,
 						Arrays.asList(new String[]{getIngString(Material.BLAZE_ROD, 0, 1),}), 1, 1, 64, 2)
 				.done();
-
-		//BACKPACK GREEN
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,11,0));
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,12,0));
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,13,0));
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,14,0));
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,15,0));
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,16,0));
-		QualityArmory.registerNewUsedExpansionItem(MaterialStorage.getMS(Material.PHANTOM_MEMBRANE,17,0));
 
 
 		GunYMLCreator.createAmmo(true, dataFolder, false, "mininuke", "MiniNuke", Material.PHANTOM_MEMBRANE, 9,

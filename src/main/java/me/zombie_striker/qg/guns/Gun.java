@@ -2,7 +2,6 @@ package me.zombie_striker.qg.guns;
 
 import com.cryptomorin.xseries.XPotion;
 import de.tr7zw.changeme.nbtapi.NBT;
-import me.zombie_striker.customitemmanager.*;
 import me.zombie_striker.qg.QAMain;
 import me.zombie_striker.qg.ammo.Ammo;
 import me.zombie_striker.qg.api.QAWeaponPrepareShootEvent;
@@ -17,6 +16,7 @@ import me.zombie_striker.qg.guns.utils.WeaponSounds;
 import me.zombie_striker.qg.guns.utils.WeaponType;
 import me.zombie_striker.qg.handlers.IronsightsHandler;
 import me.zombie_striker.qg.handlers.Update19OffhandChecker;
+import me.zombie_striker.qg.item.*;
 import me.zombie_striker.qg.utils.LocalUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -193,11 +193,6 @@ public class Gun extends CustomBaseObject implements ArmoryBaseObject, Comparabl
                     + (g.getBulletsPerShot() > 1 ? "x" + g.getBulletsPerShot() : "")));
             if (g.getAmmoType() != null)
                 lore.add(QAMain.S_ITEM_AMMO + ": " + g.getAmmoType().getDisplayName());
-        }
-        if (QAMain.AutoDetectResourcepackVersion && Bukkit.getPluginManager().isPluginEnabled("ViaRewind")) {
-            if (g.is18Support()) {
-                lore.add(ChatColor.GRAY + "1.8 Weapon");
-            }
         }
 
         if (QAMain.enableDurability)

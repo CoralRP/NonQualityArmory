@@ -1,11 +1,6 @@
-package me.zombie_striker.customitemmanager;
+package me.zombie_striker.qg.item;
 
-import java.util.List;
-
-import me.zombie_striker.customitemmanager.MaterialStorage;
-import me.zombie_striker.qg.guns.utils.WeaponSounds;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 public interface ArmoryBaseObject {
